@@ -1,6 +1,6 @@
 {
   "name": "speed-measurator",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "speed measurator",
   "type": "module",
   "source": "src/index.ts",
