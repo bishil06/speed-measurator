@@ -1,6 +1,6 @@
 {
   "name": "speed-measurator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "speed measurator",
   "type": "module",
   "source": "src/index.ts",
@@ -8,10 +8,6 @@
   "main": "dist/index.cjs",
   "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    "require": "dist/index.cjs",
-    "import": "dist/index.modern.js"
-  },
   "scripts": {
     "build": "npx microbundle",
     "test": "npm run build & npx jest"
