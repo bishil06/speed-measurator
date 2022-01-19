@@ -1,3 +1,6 @@
 src/
 __tests__/
 example/
+README.md
+tsconfig.json
+.prettierrc
