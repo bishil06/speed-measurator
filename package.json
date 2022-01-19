@@ -10,7 +10,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npx microbundle",
-    "test": "npm run build & npx jest"
+    "test": "npm run build & npx jest",
+    "publish": "npm run build & npm publish"
   },
   "repository": {
     "type": "git",
