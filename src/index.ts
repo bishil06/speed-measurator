@@ -9,6 +9,8 @@ export type OnAddHistory = (speed: number, historys: ReadonlyArray<history>) => 
 export default class SpeedMeasurator {
   private historys: history[] = []
   private lastSpeed: number = 0
+  private firstHistoryDate: number | null = null
+  private totalDistance: number = 0
   private onSpeedChange: OnSpeedChange | null = null
   private onAddHistory: OnAddHistory | null = null
 
@@ -39,7 +41,19 @@ export default class SpeedMeasurator {
     return result
   }
 
+  private setFirstHistoryDate(firstDate: number) {
+    this.firstHistoryDate = firstDate
+  }
+
+  private appendTotalDistance(distance: number) {
+    this.totalDistance += distance
+  }
+
   private runOnAddHistory(newSpeed: number) {
+    if (this.firstHistoryDate === null) {
+      this.setFirstHistoryDate(Date.now())
+    }
+
     if (this.onAddHistory !== null) {
       this.onAddHistory(newSpeed, this.historys)
     }
@@ -57,6 +71,21 @@ export default class SpeedMeasurator {
     return newSpeed
   }
 
+  getAverageSpeed() {
+    if (this.firstHistoryDate === null) {
+      return 0
+    }
+    else {
+      const now = Date.now()
+      if (now === this.firstHistoryDate) {
+        return this.totalDistance
+      }
+      else {
+        return this.totalDistance / (Date.now() - this.firstHistoryDate)
+      }
+    }
+  }
+
   setOnSpeedChange(fn: OnSpeedChange | null) {
     this.onSpeedChange = fn
   }
@@ -68,6 +97,7 @@ export default class SpeedMeasurator {
   addHistory(value: number, date = Date.now()) {
     this.cuttingOverTime(date)
     this.historys.push({ value, date })
+    this.appendTotalDistance(value)
 
     const newSpeed = this.measurSpeed()
 
